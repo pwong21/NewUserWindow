@@ -1,0 +1,185 @@
+<html>
+<head>
+<title>NewUserWindow.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+NewUserWindow.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">MyPackage</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.awt.EventQueue</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.sql.Connection</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.sql.DriverManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.sql.SQLException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.sql.Statement</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JFrame</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JLabel</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JOptionPane</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JButton</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JTextField</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.awt.event.ActionListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.event.ActionEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.SwingConstants</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.awt.Font</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javax.swing.JPasswordField</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">NewUserWindow </span><span class="s0">extends </span><span class="s1">JFrame {</span>
+
+    <span class="s0">private </span><span class="s1">JTextField txtUsername</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JPasswordField txtPassword</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">JTextField txtEmail</span><span class="s0">;</span>
+
+
+    <span class="s0">public static void </span><span class="s1">main(String[] args) {</span>
+        <span class="s1">EventQueue.invokeLater(</span><span class="s0">new </span><span class="s1">Runnable() {</span>
+            <span class="s0">public void </span><span class="s1">run() {</span>
+                <span class="s1">NewUserWindow frame = </span><span class="s0">new </span><span class="s1">NewUserWindow()</span><span class="s0">;</span>
+                <span class="s1">frame.setVisible(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">public </span><span class="s1">NewUserWindow() {</span>
+        <span class="s1">setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)</span><span class="s0">;</span>
+        <span class="s1">setBounds(</span><span class="s2">100</span><span class="s0">, </span><span class="s2">100</span><span class="s0">, </span><span class="s2">454</span><span class="s0">, </span><span class="s2">343</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">setTitle(</span><span class="s3">&quot;New User Window&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().setLayout(</span><span class="s0">null</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">JLabel hUsername = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Enter a new Username :&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">hUsername.setBounds(</span><span class="s2">78</span><span class="s0">, </span><span class="s2">50</span><span class="s0">, </span><span class="s2">150</span><span class="s0">, </span><span class="s2">14</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(hUsername)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel hPassword = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Enter a new Password :&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">hPassword.setBounds(</span><span class="s2">78</span><span class="s0">, </span><span class="s2">80</span><span class="s0">, </span><span class="s2">150</span><span class="s0">, </span><span class="s2">14</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(hPassword)</span><span class="s0">;</span>
+
+        <span class="s1">JLabel hEmail = </span><span class="s0">new </span><span class="s1">JLabel(</span><span class="s3">&quot;Enter a Email :&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">hEmail.setBounds(</span><span class="s2">78</span><span class="s0">, </span><span class="s2">116</span><span class="s0">, </span><span class="s2">150</span><span class="s0">, </span><span class="s2">14</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(hEmail)</span><span class="s0">;</span>
+
+
+
+        <span class="s1">txtUsername = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">txtUsername.setBounds(</span><span class="s2">220</span><span class="s0">, </span><span class="s2">47</span><span class="s0">, </span><span class="s2">120</span><span class="s0">, </span><span class="s2">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(txtUsername)</span><span class="s0">;</span>
+
+        <span class="s4">// Password</span>
+        <span class="s1">txtPassword = </span><span class="s0">new </span><span class="s1">JPasswordField()</span><span class="s0">;</span>
+        <span class="s1">txtPassword.setBounds(</span><span class="s2">220</span><span class="s0">, </span><span class="s2">77</span><span class="s0">, </span><span class="s2">120</span><span class="s0">, </span><span class="s2">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(txtPassword)</span><span class="s0">;</span>
+
+        <span class="s4">// Email</span>
+        <span class="s1">txtEmail = </span><span class="s0">new </span><span class="s1">JTextField(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">txtEmail.setBounds(</span><span class="s2">220</span><span class="s0">, </span><span class="s2">112</span><span class="s0">, </span><span class="s2">120</span><span class="s0">, </span><span class="s2">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(txtEmail)</span><span class="s0">;</span>
+
+        <span class="s4">// Save Button</span>
+        <span class="s1">JButton btnsubmit = </span><span class="s0">new </span><span class="s1">JButton(</span><span class="s3">&quot;Submit&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">btnsubmit.addActionListener(</span><span class="s0">new </span><span class="s1">ActionListener() {</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed(ActionEvent arg0) {</span>
+                <span class="s0">if</span><span class="s1">(InsertInformation()) {</span>
+                    <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span>
+                            <span class="s3">&quot;New User Successfully Added&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">btnsubmit.setBounds(</span><span class="s2">161</span><span class="s0">, </span><span class="s2">227</span><span class="s0">, </span><span class="s2">89</span><span class="s0">, </span><span class="s2">23</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">getContentPane().add(btnsubmit)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">private </span><span class="s1">Boolean InsertInformation()</span>
+    <span class="s1">{</span>
+
+        <span class="s1">String strUsername = txtUsername.getText()</span><span class="s0">;</span>
+        <span class="s1">String strPassword = </span><span class="s0">new </span><span class="s1">String(txtPassword.getPassword())</span><span class="s0">;</span>
+        <span class="s1">String strEmail = txtEmail.getText()</span><span class="s0">;</span>
+
+        <span class="s0">if</span><span class="s1">(strUsername.equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) </span><span class="s4">// Username</span>
+        <span class="s1">{</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span>
+                    <span class="s3">&quot;Please Enter (Username)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">txtUsername.requestFocusInWindow()</span><span class="s0">;</span>
+            <span class="s0">return false;</span>
+        <span class="s1">}</span>
+        <span class="s0">if</span><span class="s1">(strPassword.equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) </span><span class="s4">// Password</span>
+        <span class="s1">{</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span>
+                    <span class="s3">&quot;Please Enter (Password)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">txtPassword.requestFocusInWindow()</span><span class="s0">;</span>
+            <span class="s0">return false;</span>
+        <span class="s1">}</span>
+
+
+        <span class="s0">if</span><span class="s1">(strEmail.equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) </span><span class="s4">// Email</span>
+        <span class="s1">{</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null,</span>
+                    <span class="s3">&quot;Please Enter (Email)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">txtEmail.requestFocusInWindow()</span><span class="s0">;</span>
+            <span class="s0">return false;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">Connection connect = </span><span class="s0">null;</span>
+        <span class="s1">Statement s = </span><span class="s0">null;</span>
+        <span class="s1">Boolean status = </span><span class="s0">false;</span>
+
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">Class.forName(</span><span class="s3">&quot;com.mysql.jdbc.Driver&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">connect = DriverManager.getConnection(</span><span class="s3">&quot;&quot;</span>
+                    <span class="s1">+ </span><span class="s3">&quot;jdbc:mysql://localhost/mydatabase&quot;</span>
+                    <span class="s1">+ </span><span class="s3">&quot;?user=root&amp;password=root&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">s = connect.createStatement()</span><span class="s0">;</span>
+
+            <span class="s4">// SQL Insert</span>
+            <span class="s1">String sql = </span><span class="s3">&quot;INSERT INTO userinfo &quot;</span>
+                    <span class="s1">+ </span><span class="s3">&quot;(Username,Password,Email) &quot;</span>
+                    <span class="s1">+ </span><span class="s3">&quot;VALUES ('&quot; </span><span class="s1">+ strUsername + </span><span class="s3">&quot;','&quot;</span>
+                    <span class="s1">+ strPassword + </span><span class="s3">&quot;','&quot;</span>
+                    <span class="s1">+ strEmail + </span><span class="s3">&quot;') &quot;</span><span class="s0">;</span>
+            <span class="s1">s.execute(sql)</span><span class="s0">;</span>
+
+
+            <span class="s4">// Reset Text Fields</span>
+            <span class="s1">txtUsername.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">txtPassword.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">txtEmail.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">status  = </span><span class="s0">true;</span>
+
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+            <span class="s4">// TODO Auto-generated catch block</span>
+            <span class="s1">JOptionPane.showMessageDialog(</span><span class="s0">null, </span><span class="s1">e.getMessage())</span><span class="s0">;</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s0">if </span><span class="s1">(s != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">s.close()</span><span class="s0">;</span>
+                <span class="s1">connect.close()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(SQLException e) {</span>
+            <span class="s4">// TODO Auto-generated catch block</span>
+            <span class="s1">System.out.println(e.getMessage())</span><span class="s0">;</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">status</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
